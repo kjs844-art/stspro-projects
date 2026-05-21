@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+    이 파일은 진짜 SQL 쿼리문이 적혀 있는 곳입니다.
+    namespace에는 연결될 자바 매퍼 인터페이스(Step4_MemberMapper)의 "전체 패키지 경로"를 적어줍니다.
+-->
+<mapper namespace="com.joe.book.mapper.M_D2P5_MemberMapper">
+
+    <!-- 
+        [회원가입 처리]
+        id="join" -> 자바 파일의 join() 메서드와 연결됨
+        parameterType -> 컨트롤러/서비스에서 받아오는 데이터 통(DTO)의 주소
+        
+        #{username} 은 자바 DTO의 getUsername()과 매칭되어 데이터가 채워집니다.
+    -->
+    <insert id="join" parameterType="com.joe.book.model.M_D1P2_MemberDTO">
+        INSERT INTO member (username, password, name, role)
+        VALUES (#{username}, #{password}, #{name}, 'USER')
+    </insert>
+
+    <!-- 
+        [로그인 처리]
+        id="login" -> 자바 파일의 login() 메서드와 연결됨
+        resultType -> DB에서 가져온 결과(SELECT)를 담아서 돌려줄 데이터 통(DTO)의 주소
+        
+        WHERE 절에서 넘어온 아이디와 비밀번호가 일치하는 한 명의 정보만 가져옵니다.
+    -->
+    <select id="login" parameterType="com.joe.book.model.M_D1P2_MemberDTO" resultType="com.joe.book.model.M_D1P2_MemberDTO">
+        SELECT *
+        FROM member
+        WHERE username = #{username} AND password = #{password}
+    </select>
+
+</mapper>
+

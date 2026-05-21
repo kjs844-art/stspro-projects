@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS watchlist (
+    id SERIAL PRIMARY KEY,
+    ticker VARCHAR(20) NOT NULL,
+    memo VARCHAR(200),
+    reg_date TIMESTAMP DEFAULT NOW()
+);

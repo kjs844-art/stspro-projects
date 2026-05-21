@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- [학습용 주석 - 4단계: Java MVC 구현 (Mapper XML)]
+     namespace 에는 연결될 Mapper 인터페이스의 패키지명 + 클래스명을 정확히 적어야 합니다. 
+-->
+<mapper namespace="com.joe.sq.mapper.ReservationMapper">
+
+    <!-- 1. 테이블이 없을 경우 자동 생성 (편의를 위한 쿼리) -->
+    <update id="createTableIfNotExists">
+        CREATE TABLE IF NOT EXISTS oopo_reservation (
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(100) NOT NULL,
+            phone VARCHAR(50) NOT NULL,
+            guests INTEGER NOT NULL,
+            book_date VARCHAR(20) NOT NULL,
+            book_time VARCHAR(20) NOT NULL
+        )
+    </update>
+
+    <!-- 2. 예약 목록 전체 조회 -->
+    <!-- application.properties 에서 mybatis.configuration.map-underscore-to-camel-case=true 로 설정했기 때문에
+         book_date 컬럼이 자바 DTO의 bookDate 로 자동 매핑됩니다. -->
+    <select id="findAll" resultType="ReservationDto">
+        SELECT * FROM oopo_reservation ORDER BY id DESC
+    </select>
+
+    <!-- [추가] ID를 기준으로 하나의 예약 정보만 가져옵니다. -->
+    <select id="findById" resultType="ReservationDto">
+        SELECT * FROM oopo_reservation WHERE id = #{id}
+    </select>
+
+    <!-- 3. 새로운 예약 등록 -->
+    <insert id="insertReservation">
+        INSERT INTO oopo_reservation (name, phone, guests, book_date, book_time)
+        VALUES (#{name}, #{phone}, #{guests}, #{bookDate}, #{bookTime})
+    </insert>
+
+    <!-- 4. 특정 예약 삭제 (ID 기준) -->
+    <delete id="deleteReservation">
+        DELETE FROM oopo_reservation WHERE id = #{id}
+    </delete>
+
+</mapper>

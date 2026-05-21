@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+  📖 도서 SQL 매퍼 (D2P6_BookMapper.xml)
+  이 파일은 자바 코드 대신 실제 DB에 날릴 SQL 쿼리문들을 모아놓은 곳입니다.
+-->
+
+<!-- namespace: 연결할 자바 인터페이스(D2P5_BookMapper)의 전체 경로를 적어줍니다. -->
+<mapper namespace="com.joe.book.mapper.D2P5_BookMapper">
+
+  <!-- 
+    1. 전체 도서 목록 가져오기 (selectAll)
+    resultType="D1P2_BookDTO": 쿼리 결과(제목, 저자 등)를 D1P2_BookDTO 객체에 자동으로 담아줍니다.
+  -->
+  <select id="selectAll" resultType="D1P2_BookDTO">
+    SELECT
+      id,
+      title,
+      author,
+      publisher
+    FROM book
+    ORDER BY id DESC
+  </select>
+
+  <!-- 
+    2. 특정 도서 1권 정보 가져오기 (selectOne)
+    parameterType="int": 자바에서 넘어오는 파라미터가 정수형(id)임을 알려줍니다.
+  -->
+  <select id="selectOne" parameterType="int" resultType="D1P2_BookDTO">
+    SELECT
+      id,
+      title,
+      author,
+      publisher
+    FROM book
+    WHERE id = #{id}
+  </select>
+
+  <!-- 
+    3. 새 도서 정보 저장 (insert)
+    #{title}, #{author} 등은 DTO 객체의 필드값들을 의미합니다.
+  -->
+  <insert id="insert" parameterType="D1P2_BookDTO">
+    INSERT INTO book (title, author, publisher)
+    VALUES (#{title}, #{author}, #{publisher})
+  </insert>
+
+  <!-- 
+    4. 기존 도서 정보 수정 (update)
+  -->
+  <update id="update" parameterType="D1P2_BookDTO">
+    UPDATE book
+    SET
+      title     = #{title},
+      author    = #{author},
+      publisher = #{publisher}
+    WHERE id = #{id}
+  </update>
+
+  <!-- 
+    5. 도서 삭제 (delete)
+  -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM book
+    WHERE id = #{id}
+  </delete>
+
+</mapper>
+

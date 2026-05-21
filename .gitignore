@@ -1,0 +1,15 @@
+.gradle/
+build/
+bin/
+target/
+.metadata/
+.venv/
+venv/
+node_modules/
+dist/
+out/
+*.class
+*.log
+*.tmp
+.DS_Store
+Thumbs.db

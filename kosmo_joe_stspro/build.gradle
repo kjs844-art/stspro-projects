@@ -1,0 +1,83 @@
+plugins { // 흐름 0-1: Gradle이 이 프로젝트에 어떤 기능을 붙일지 정하는 시작 영역입니다.
+
+	id 'java' // 흐름 0-2: Java 코드를 컴파일할 수 있게 하는 플러그인입니다.
+
+	id 'war' // 흐름 0-3: JSP 웹 프로젝트를 WAR 형태로 만들 수 있게 하는 플러그인입니다.
+
+	id 'eclipse' // 흐름 0-4: 아래 eclipse { } 설정을 사용할 수 있게 하는 플러그인입니다.
+
+	id 'eclipse-wtp' // 흐름 0-5: STS/Eclipse 웹 프로젝트 설정을 만들 수 있게 하는 플러그인입니다.
+
+	id 'org.springframework.boot' version '3.5.14' // 흐름 0-6: Spring Boot 실행과 빌드 기능을 제공하는 플러그인입니다.
+
+	id 'io.spring.dependency-management' version '1.1.7' // 흐름 0-7: Spring 라이브러리 버전을 맞춰주는 플러그인입니다.
+
+} // 흐름 0-8: plugins 영역을 닫습니다.
+
+group = 'com.joe.stspro' // 흐름 0-9: 프로젝트의 기본 그룹 이름이며 Java 패키지 뿌리와 비슷하게 봅니다.
+
+version = '0.0.1-SNAPSHOT' // 흐름 0-10: 현재 프로젝트 버전 이름입니다.
+
+java { // 흐름 0-11: Java 컴파일 설정을 시작합니다.
+
+	toolchain { // 흐름 0-12: 사용할 JDK 버전을 정하는 영역입니다.
+
+		languageVersion = JavaLanguageVersion.of(21) // 흐름 0-13: Java 21로 컴파일하겠다는 뜻입니다.
+
+	} // 흐름 0-14: toolchain 영역을 닫습니다.
+
+} // 흐름 0-15: java 설정 영역을 닫습니다.
+
+repositories { // 흐름 0-16: 라이브러리를 어디서 받을지 정하는 영역입니다.
+
+	mavenCentral() // 흐름 0-17: Maven 중앙 저장소에서 Spring, Lombok 같은 라이브러리를 받습니다.
+
+} // 흐름 0-18: repositories 영역을 닫습니다.
+
+dependencies { // 흐름 0-19: 프로젝트가 사용할 라이브러리를 적는 영역입니다.
+
+	implementation 'org.springframework.boot:spring-boot-starter-web' // 흐름 0-20: Controller, Tomcat, 웹 요청 처리를 위한 핵심 라이브러리입니다.
+
+	compileOnly 'org.projectlombok:lombok' // 흐름 0-21: Lombok은 컴파일 때만 필요한 라이브러리입니다.
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools' // 흐름 0-22: 개발 중 자동 재시작 같은 편의 기능입니다.
+
+	annotationProcessor 'org.projectlombok:lombok' // 흐름 0-23: @Getter, @Setter 코드를 Lombok이 생성하게 합니다.
+
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat' // 흐름 0-24: WAR 배포 기준으로 Tomcat을 외부에서 제공받는 설정입니다.
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' // 흐름 0-25: 테스트 코드 실행에 필요한 라이브러리입니다.
+
+	testCompileOnly 'org.projectlombok:lombok' // 흐름 0-26: 테스트 코드에서도 Lombok을 컴파일 때만 사용합니다.
+
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher' // 흐름 0-27: JUnit 테스트 실행 런처입니다.
+
+	testAnnotationProcessor 'org.projectlombok:lombok' // 흐름 0-28: 테스트 코드의 Lombok 어노테이션도 처리합니다.
+
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper' // 흐름 0-29: JSP 파일을 Spring Boot에서 해석할 수 있게 합니다.
+
+	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api' // 흐름 0-30: JSP에서 JSTL 태그를 쓸 때 필요한 API입니다.
+
+	runtimeOnly 'org.glassfish.web:jakarta.servlet.jsp.jstl' // 흐름 0-31: JSTL이 실제 실행될 때 필요한 구현체입니다.
+
+} // 흐름 0-32: dependencies 영역을 닫습니다.
+
+eclipse { // 흐름 0-33: STS/Eclipse 프로젝트 설정 영역입니다.
+
+	wtp { // 흐름 0-34: Eclipse 웹 프로젝트 설정 영역입니다.
+
+		facet { // 흐름 0-35: 웹 프로젝트 기능 버전을 정하는 영역입니다.
+
+			facet name: 'jst.web', version: '6.0' // 흐름 0-36: Jakarta 웹 프로젝트 버전을 6.0으로 설정합니다.
+
+		} // 흐름 0-37: facet 영역을 닫습니다.
+
+	} // 흐름 0-38: wtp 영역을 닫습니다.
+
+} // 흐름 0-39: eclipse 영역을 닫습니다.
+
+tasks.named('test') { // 흐름 0-40: Gradle의 test 작업 설정 영역입니다.
+
+	useJUnitPlatform() // 흐름 0-41: JUnit 5 방식으로 테스트를 실행하겠다는 뜻입니다.
+
+} // 흐름 0-42: test 설정 영역을 닫습니다.

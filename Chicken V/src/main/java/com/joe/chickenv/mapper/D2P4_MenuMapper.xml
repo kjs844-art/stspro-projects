@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 1. namespace는 연결될 자바 인터페이스의 전체 경로여야 합니다. -->
+<mapper namespace="com.joe.chickenv.mapper.D2P4_MenuMapper">
+
+    <!-- 
+       메뉴 목록 조회 (동적 쿼리 적용) 
+       id: 인터페이스의 메소드 이름과 똑같아야 함
+       resultType: 결과를 담을 DTO 클래스 (application.properties의 별칭 설정 덕분에 클래스명만 써도 됨)
+    -->
+    <select id="getMenuList" resultType="D1P2_MenuDTO">
+        SELECT * FROM menu_table
+        <!-- 
+            <where> 태그는 조건이 있을 때만 WHERE 절을 만들어주고, 
+            맨 앞의 AND나 OR를 알아서 지워주는 똑똑한 태그입니다.
+        -->
+        <where>
+            <!-- 만약 category 파라미터가 비어있지 않다면(null이 아니고 빈 문자열이 아니면) 실행 -->
+            <if test="category != null and category != ''">
+                AND menu_category = #{category}
+            </if>
+        </where>
+        ORDER BY menu_id DESC
+    </select>
+
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+============================================================
+NoticeMapper.xml - MyBatis SQL Mappings for Notice
+============================================================
+namespace: must match the fully-qualified Mapper interface name
+id: must match the method name in the Mapper interface
+resultType: the Java class that each row is mapped to
+parameterType: the Java class of the input parameter
+
+SQL writing rules:
+- #{fieldName} : MyBatis replaces this with the value from the DTO
+- #{} uses PreparedStatement (safe from SQL injection)
+============================================================
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.joe.java.notice.NoticeMapper">
+
+    <!-- C: Insert a new notice -->
+    <insert id="insertNotice" parameterType="NoticeDTO" useGeneratedKeys="true" keyProperty="noticeId">
+        INSERT INTO notice (title, content, writer)
+        VALUES (#{title}, #{content}, #{writer})
+    </insert>
+
+    <!-- R: Select all notices, newest first -->
+    <select id="selectNoticeList" resultType="NoticeDTO">
+        SELECT * FROM notice ORDER BY notice_id DESC
+    </select>
+
+    <!-- R: Select one notice by its primary key -->
+    <select id="selectNoticeById" parameterType="Long" resultType="NoticeDTO">
+        SELECT * FROM notice WHERE notice_id = #{noticeId}
+    </select>
+
+    <!-- U: Update title and content, refresh mod_date -->
+    <update id="updateNotice" parameterType="NoticeDTO">
+        UPDATE notice
+        SET title = #{title}, content = #{content}, mod_date = CURRENT_TIMESTAMP
+        WHERE notice_id = #{noticeId}
+    </update>
+
+    <!-- D: Delete one notice by id -->
+    <delete id="deleteNotice" parameterType="Long">
+        DELETE FROM notice WHERE notice_id = #{noticeId}
+    </delete>
+
+    <!-- Extra: Add 1 to hit count when someone reads an article -->
+    <update id="updateHit" parameterType="Long">
+        UPDATE notice SET hit = hit + 1 WHERE notice_id = #{noticeId}
+    </update>
+
+</mapper>

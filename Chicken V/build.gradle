@@ -1,0 +1,71 @@
+plugins {
+    id 'java'
+    id 'war' // 스크린샷의 Packaging: War 반영
+    id 'org.springframework.boot' version '3.2.5'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.joe'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '21'
+}
+
+// 📌 추가: 자바 폴더 내의 XML 파일을 빌드 결과물에 포함시킵니다.
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/java", "src/main/resources"]
+        }
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring Boot Web & DevTools
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    
+    // MyBatis Framework
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+    
+    // Database Drivers (스크린샷 반영)
+    runtimeOnly 'org.postgresql:postgresql' // PostgreSQL Driver
+    runtimeOnly 'com.oracle.database.jdbc:ojdbc11' // Oracle Driver
+    runtimeOnly 'com.h2database:h2' // 테스트용 H2도 유지
+    
+    // JSP 지원 (War 패키징용)
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+eclipse {
+    wtp {
+        facet {
+            facet name: 'jst.web', version: '6.0'
+        }
+    }
+}
+
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

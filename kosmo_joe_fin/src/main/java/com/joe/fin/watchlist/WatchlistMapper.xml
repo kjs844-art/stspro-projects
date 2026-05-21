@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.joe.fin.watchlist.WatchlistMapper">
+	<select id="findByMemberId" parameterType="int" resultType="com.joe.fin.watchlist.WatchlistDTO">
+		select
+			watchlist_id,
+			member_id,
+			symbol,
+			asset_type,
+			memo,
+			created_at
+		from watchlist
+		where member_id = #{memberId}
+		order by watchlist_id desc
+	</select>
+
+	<insert id="insert" parameterType="com.joe.fin.watchlist.WatchlistDTO">
+		insert into watchlist (
+			member_id,
+			symbol,
+			asset_type,
+			memo
+		) values (
+			#{memberId},
+			#{symbol},
+			#{assetType},
+			#{memo}
+		)
+	</insert>
+
+	<delete id="delete" parameterType="com.joe.fin.watchlist.WatchlistDTO">
+		delete from watchlist
+		where watchlist_id = #{watchlistId}
+		  and member_id = #{memberId}
+	</delete>
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.joe.app.watchlist.WatchlistMapper">
+
+  <select id="findAll" resultType="WatchlistDTO">
+    SELECT id, ticker, memo, reg_date
+    FROM watchlist
+    ORDER BY id DESC
+  </select>
+
+  <insert id="insert" parameterType="WatchlistDTO">
+    INSERT INTO watchlist (ticker, memo)
+    VALUES (#{ticker}, #{memo})
+  </insert>
+
+  <delete id="delete" parameterType="Integer">
+    DELETE FROM watchlist
+    WHERE id = #{id}
+  </delete>
+
+</mapper>

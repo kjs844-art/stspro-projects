@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+================================================================
+[Phase 5] - 파일 (23)번 : MemberMapper.xml
+================================================================
+
+[왜 이 파일이 23번째로 만들어지나?]
+
+WatchlistMapper.xml(16번)과 완전히 동일한 역할.
+MemberMapper.java(22번) 인터페이스의 메서드들에 대한
+실제 SQL 쿼리를 여기에 작성한다.
+
+----------------------------------------------------------------
+[이 파일의 핵심 SQL들]
+
+1. findByUserId - 로그인 검증용
+
+   <select id="findByUserId" parameterType="String" resultType="MemberDTO">
+     SELECT id, user_id, password, nickname, reg_date
+     FROM member
+     WHERE user_id = #{userId}
+   </select>
+
+   → 결과가 없으면 null 반환 → Service에서 null 체크로 로그인 실패 처리
+
+2. insert - 회원가입
+
+   <insert id="insert" parameterType="MemberDTO">
+     INSERT INTO member (user_id, password, nickname)
+     VALUES (#{userId}, #{password}, #{nickname})
+   </insert>
+
+   → #{password} 에는 BCrypt로 암호화된 값이 들어와야 함!
+   → Service에서 암호화 후 DTO에 set하고 Mapper 호출
+
+3. existsByUserId - 아이디 중복 확인 (선택)
+
+   <select id="existsByUserId" parameterType="String" resultType="boolean">
+     SELECT COUNT(*) > 0
+     FROM member
+     WHERE user_id = #{userId}
+   </select>
+
+----------------------------------------------------------------
+[WatchlistMapper.xml vs MemberMapper.xml 비교]
+
+| 항목           | WatchlistMapper.xml      | MemberMapper.xml              |
+|----------------|--------------------------|-------------------------------|
+| namespace      | ...watchlist.WatchlistMapper | ...member.MemberMapper    |
+| 주요 SQL       | SELECT, INSERT, DELETE   | SELECT(로그인), INSERT(가입) |
+| 복잡도         | 단순 CRUD                | 보안 로직 포함 (BCrypt)      |
+
+----------------------------------------------------------------
+[다음에 만들 파일]
+
+→ (24)번 MemberService.java
+   이유: MemberMapper가 준비됐으니 로그인 검증 로직과
+   회원가입 처리 로직을 Service에서 구현한다.
+   가장 복잡한 비즈니스 로직이 여기에 들어간다.
+
+================================================================
+-->
+
+<!-- TODO: <mapper namespace="com.joe.app.member.MemberMapper"> 작성 -->
+
+  <!-- TODO: findByUserId - SELECT 쿼리 (로그인 검증) -->
+  <!-- TODO: insert - INSERT 쿼리 (회원가입) -->
+
+<!-- </mapper> -->

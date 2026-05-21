@@ -1,0 +1,76 @@
+plugins {
+	id 'java'
+	id 'war'
+	// eclipse { ... } 설정을 사용하기 위한 플러그인입니다.
+		id 'eclipse'
+		id 'eclipse-wtp'
+	id 'org.springframework.boot' version '3.5.14'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.joe.fin'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+sourceSets {
+	main {
+		resources {
+			srcDirs = ['src/main/resources', 'src/main/java']
+			include '**/*.properties', '**/*.sql', '**/*.xml', 'static/**'
+		}
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.5'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.5'
+	testCompileOnly 'org.projectlombok:lombok'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+	
+	
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper' 
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api' 
+    runtimeOnly 'org.glassfish.web:jakarta.servlet.jsp.jstl' 
+	
+	implementation 'com.yahoofinance-api:YahooFinanceAPI:3.17.0'
+	
+	runtimeOnly 'com.h2database:h2'
+	
+	
+}
+
+
+ eclipse {
+    wtp {
+        facet {
+            facet name: 'jst.web', version: '6.0' 
+        }
+    }
+}
+
+
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.encoding = 'UTF-8'
+}

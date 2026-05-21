@@ -1,0 +1,379 @@
+@charset "UTF-8";
+
+/* [EXPLAIN-CODE 009] JSP에서 <link rel="stylesheet" href="/css/eastwood888.css">로 불러오는 정적 CSS입니다. */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 20% 10%, rgba(255, 207, 90, 0.14), transparent 34%),
+        radial-gradient(circle at 78% 22%, rgba(194, 47, 35, 0.2), transparent 30%),
+        #151515;
+    color: #f7f1e8;
+    font-family: Arial, "Noto Sans KR", sans-serif;
+}
+
+.nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 8vw;
+    background: rgba(21, 21, 21, 0.92);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.brand,
+.links a,
+.lang-switch a,
+.btn {
+    color: inherit;
+    text-decoration: none;
+}
+
+.brand {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+}
+
+.links {
+    display: flex;
+    gap: 18px;
+}
+
+.links a,
+.lang-switch a {
+    color: #d7cabd;
+    font-size: 14px;
+}
+
+.links a:hover,
+.lang-switch a:hover {
+    color: #f2b84b;
+}
+
+.lang-switch {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+    max-width: 480px;
+    margin-left: 20px;
+}
+
+.lang-switch a {
+    padding: 6px 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    white-space: nowrap;
+}
+
+.hero,
+.page,
+.section {
+    width: min(1040px, 92vw);
+    margin: 0 auto;
+}
+
+.hero {
+    min-height: 70vh;
+    display: grid;
+    align-content: center;
+    padding: 72px 0;
+}
+
+.hero-bg {
+    width: 100%;
+    min-height: calc(100vh - 64px);
+    padding: 90px 8vw;
+    position: relative;
+    overflow: hidden;
+    background:
+        linear-gradient(90deg, rgba(10, 9, 8, 0.94) 0%, rgba(10, 9, 8, 0.72) 38%, rgba(10, 9, 8, 0.18) 100%),
+        url("/images/gogi-interior.jpg") center / cover no-repeat;
+}
+
+.hero-bg::after {
+    content: "";
+    position: absolute;
+    right: 8vw;
+    bottom: 38px;
+    width: min(360px, 34vw);
+    aspect-ratio: 4 / 3;
+    background: url("/images/gogi-food-1.jpg") center / cover no-repeat;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 22px 55px rgba(0, 0, 0, 0.45);
+}
+
+.hero-bg .hero-copy {
+    width: min(760px, 100%);
+    position: relative;
+    z-index: 1;
+}
+
+.hero-photo {
+    grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
+    align-items: center;
+    gap: 34px;
+}
+
+.hero-media {
+    display: grid;
+    grid-template-columns: 1fr 0.78fr;
+    gap: 12px;
+    align-items: end;
+}
+
+.hero-media img,
+.photo-grid img,
+.menu-photo-grid img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 20px 44px rgba(0, 0, 0, 0.28);
+}
+
+.hero-media img:first-child {
+    aspect-ratio: 4 / 5;
+}
+
+.hero-media img:last-child {
+    aspect-ratio: 3 / 4;
+    margin-bottom: 42px;
+}
+
+.page {
+    padding: 58px 0 90px;
+}
+
+.eyebrow {
+    margin: 0 0 12px;
+    color: #ffcf5a;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+h1 {
+    margin: 0;
+    font-size: clamp(40px, 7vw, 84px);
+    line-height: 1.05;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+.lead {
+    width: min(620px, 100%);
+    color: #d7cabd;
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 18px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: transparent;
+    color: #f7f1e8;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.btn.primary {
+    border-color: #f2b84b;
+    background: #f2b84b;
+    color: #17120a;
+}
+
+.section {
+    padding-bottom: 80px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+.cards article,
+.booking-form,
+.table-wrap {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.cards article {
+    padding: 22px;
+}
+
+.cards p {
+    color: #d7cabd;
+    line-height: 1.6;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 14px;
+}
+
+.photo-grid img {
+    height: 280px;
+}
+
+.menu-photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 28px 0 42px;
+}
+
+.menu-photo-grid img {
+    height: 420px;
+    object-fit: contain;
+    background: #0e0e0e;
+}
+
+.menu-list {
+    display: grid;
+    gap: 12px;
+    margin: 28px 0;
+}
+
+.menu-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.menu-row span {
+    display: block;
+    margin-top: 6px;
+    color: #c7bab0;
+    font-size: 14px;
+}
+
+.booking-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin: 28px 0 38px;
+    padding: 24px;
+}
+
+.booking-form label {
+    display: grid;
+    gap: 8px;
+    color: #ffcf5a;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+input,
+select {
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: #201d1a;
+    color: #f7f1e8;
+}
+
+.booking-form button {
+    grid-column: 1 / -1;
+}
+
+.table-wrap {
+    overflow-x: auto;
+    padding: 24px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 12px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    text-align: left;
+    white-space: nowrap;
+}
+
+th {
+    color: #ffcf5a;
+}
+
+.link-button {
+    border: 0;
+    background: transparent;
+    color: #ff8b72;
+    cursor: pointer;
+}
+
+.empty {
+    color: #c7bab0;
+    text-align: center;
+}
+
+@media (max-width: 720px) {
+    .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .lang-switch {
+        justify-content: flex-start;
+        margin-left: 0;
+    }
+
+    .cards,
+    .booking-form,
+    .hero-photo,
+    .photo-grid,
+    .menu-photo-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-media img:last-child {
+        margin-bottom: 0;
+    }
+
+    .menu-photo-grid img {
+        height: auto;
+    }
+
+    .hero-bg {
+        min-height: 78vh;
+        padding: 64px 6vw;
+    }
+
+    .hero-bg::after {
+        display: none;
+    }
+}

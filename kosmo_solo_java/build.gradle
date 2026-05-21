@@ -1,0 +1,82 @@
+plugins {
+	// Java 프로젝트로 빌드하겠다는 기본 플러그인입니다.
+	id 'java'
+	
+	// JSP/WEB-INF 구조처럼 웹 프로젝트를 war 형태로 만들 수 있게 합니다.
+	id 'war'
+	
+	// 아래 두 플러그인은 build.gradle의 eclipse { ... } 설정을 사용할 수 있게 해줍니다.
+	// STS/Eclipse에서 웹 프로젝트 구조를 이해하도록 돕습니다.
+		id 'eclipse'
+		id 'eclipse-wtp'
+	
+	// Spring Boot를 실행하고 빌드할 수 있게 해주는 플러그인입니다.
+	id 'org.springframework.boot' version '3.5.14'
+	
+	// Spring 관련 라이브러리 버전 관리를 도와줍니다.
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+// group은 패키지/조직 이름처럼 프로젝트를 구분하는 값입니다.
+group = 'com.joe.java'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		// 이 프로젝트는 Java 21 기준으로 컴파일됩니다.
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	// 필요한 라이브러리를 Maven Central 저장소에서 내려받습니다.
+	mavenCentral()
+}
+
+dependencies {
+	// Spring MVC, 내장 Tomcat 등 웹 개발에 필요한 기본 묶음입니다.
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	
+	// JDBC + H2 + MyBatis: database access stack
+	// spring-boot-starter-jdbc provides DataSource and JdbcTemplate
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	// MyBatis: write SQL in XML files, map results to Java objects automatically
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.5'
+	// H2: in-memory database - no install needed, runs inside the app
+	runtimeOnly 'com.h2database:h2'
+	
+	// Lombok은 getter/setter 같은 반복 코드를 줄여주는 도구입니다.
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	
+	// 개발 중 파일 변경을 감지해서 재시작을 도와줍니다.
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	
+	// war 배포 시 외부 Tomcat을 사용할 수 있도록 표시합니다.
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	
+	// 테스트 코드 실행용 라이브러리입니다.
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.5'
+	testCompileOnly 'org.projectlombok:lombok'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+	
+	// JSP 파일을 Spring Boot에서 해석하기 위한 라이브러리입니다.
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
+    runtimeOnly 'org.glassfish.web:jakarta.servlet.jsp.jstl'
+}
+
+// STS/Eclipse에서 Dynamic Web Project 형태로 인식하도록 돕는 설정입니다.
+eclipse {
+    wtp {
+        facet {
+            facet name: 'jst.web', version: '6.0'
+        }
+    }
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.joe.java.qna.QnaMapper">
+
+    <insert id="insertQna" parameterType="QnaDTO" useGeneratedKeys="true" keyProperty="qnaId">
+        INSERT INTO qna (title, content, writer)
+        VALUES (#{title}, #{content}, #{writer})
+    </insert>
+
+    <select id="selectQnaList" resultType="QnaDTO">
+        SELECT * FROM qna ORDER BY qna_id DESC
+    </select>
+
+    <select id="selectQnaById" parameterType="Long" resultType="QnaDTO">
+        SELECT * FROM qna WHERE qna_id = #{qnaId}
+    </select>
+
+    <update id="updateQna" parameterType="QnaDTO">
+        UPDATE qna
+        SET title = #{title}, content = #{content}, mod_date = CURRENT_TIMESTAMP
+        WHERE qna_id = #{qnaId}
+    </update>
+
+    <delete id="deleteQna" parameterType="Long">
+        DELETE FROM qna WHERE qna_id = #{qnaId}
+    </delete>
+
+    <update id="updateHit" parameterType="Long">
+        UPDATE qna SET hit = hit + 1 WHERE qna_id = #{qnaId}
+    </update>
+
+</mapper>

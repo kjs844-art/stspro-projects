@@ -1,0 +1,47 @@
+plugins {
+	id 'java'
+	id 'war'
+	id 'eclipse'
+	id 'eclipse-wtp'
+	id 'org.springframework.boot' version '3.5.14'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.joe.biostock'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
+	runtimeOnly 'org.glassfish.web:jakarta.servlet.jsp.jstl'
+}
+
+eclipse {
+	wtp {
+		facet {
+			facet name: 'jst.web', version: '6.0'
+		}
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
