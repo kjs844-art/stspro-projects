@@ -24,6 +24,7 @@ a { color: #0b5cad; text-decoration: none; }
 		<a class="button" href="/members/plans">회원 권한</a>
 		<a class="button" href="/watchlist">관심종목</a>
 		<a class="button" href="/news?symbol=NVDA">뉴스 메모</a>
+		<a class="button" href="/shadow-risk">지하경제 리스크</a>
 		<a href="/h2-console">H2 콘솔</a>
 	</div>
 </main>

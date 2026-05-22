@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "zapier": {
+      "type": "http",
+      "url": "https://mcp.zapier.com/api/mcp/YOUR_SERVER_ID"
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
+    }
+  }
+}

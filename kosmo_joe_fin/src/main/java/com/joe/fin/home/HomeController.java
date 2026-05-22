@@ -29,11 +29,11 @@ public class HomeController {
 	 */
 	@GetMapping("/")
 	public String home() {
-		// 🧑‍🏫 Why return "index"?
+		// 🧑‍🏫 Why return "terminal"?
 		// This is the "View" part of MVC.
-		// Spring looks for a file named "index.jsp" or "index.html" 
+		// Spring looks for a file named "terminal.jsp"
 		// inside your webapp folders and sends it to the user.
-		return "index";
+		return "terminal";
 	}
 
 	@GetMapping("/terminal")

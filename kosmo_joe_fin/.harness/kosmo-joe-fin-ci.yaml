@@ -1,0 +1,25 @@
+pipeline:
+  name: kosmo_joe_fin_ci
+  identifier: kosmo_joe_fin_ci
+  projectIdentifier: KOSMO_JOE_FIN
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: Build
+        identifier: Build
+        type: CI
+        spec:
+          cloneCodebase: true
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Gradle Build
+                  identifier: Gradle_Build
+                  spec:
+                    shell: Sh
+                    command: |
+                      chmod +x ./gradlew
+                      ./gradlew clean build --no-daemon
+        delegateSelectors: []

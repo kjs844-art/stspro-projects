@@ -35,3 +35,15 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Local AI / MCP secrets ###
+.env
+.env.*
+!.env.example
+.mcp.json
+opencode.json
+opencode.jsonc
+.gemini/settings.json
+.gemini/*.local.json
+.antigravity/
+secrets/

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  // 실제 API 키나 토큰은 여기에 직접 쓰지 않습니다.
+  // 이 파일은 예시입니다. 실제로 쓸 때는 opencode.jsonc로 복사한 뒤 필요한 값만 채웁니다.
+  "mcp": {
+    "zapier": {
+      "type": "remote",
+      "url": "https://mcp.zapier.com/api/mcp/YOUR_SERVER_ID",
+      "enabled": false
+    },
+    "github": {
+      "type": "remote",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "enabled": false
+    }
+  },
+  "tools": {
+    // MCP를 너무 많이 켜면 컨텍스트가 무거워지므로 처음에는 꺼둡니다.
+    "zapier": false,
+    "github": false
+  }
+}

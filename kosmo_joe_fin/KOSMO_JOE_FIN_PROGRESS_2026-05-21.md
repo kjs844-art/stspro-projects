@@ -142,6 +142,48 @@ POST /watchlist redirectTo=/etfs/search?ticker=SPY&plan=FREE => 302 ETF detail
 POST /watchlist redirectTo=https://example.com => 302 /watchlist
 ```
 
+### 5. Free-First Shadow Risk MVP
+
+Added a first `Shadow Risk Index` screen using a free/public-data-first strategy.
+
+Files:
+
+```text
+src/main/java/com/joe/fin/shadow/ShadowRiskDTO.java
+src/main/java/com/joe/fin/shadow/ShadowRiskService.java
+src/main/java/com/joe/fin/shadow/ShadowRiskController.java
+src/main/webapp/WEB-INF/views/shadow/detail.jsp
+```
+
+URL:
+
+```text
+http://localhost:18085/shadow-risk
+http://localhost:18085/shadow-risk?keyword=crypto
+```
+
+Current behavior:
+
+```text
+Primary free API target: GDELT DOC public API
+Fallback: demo risk data when the free API is slow or rate-limited
+```
+
+The screen calculates a portfolio-style score from:
+
+```text
+article count
+sanctions keywords
+cyber/ransomware/breach keywords
+laundering/illicit/fraud keywords
+```
+
+Important:
+
+```text
+This is defensive/public-risk analysis, not direct dark-web crawling.
+```
+
 ## Next Work
 
 ### Priority 1

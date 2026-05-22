@@ -1,0 +1,42 @@
+{
+  "name": "kosmo_fin_risk_refresh",
+  "description": "Beginner starter workflow for refreshing public risk data in kosmo_joe_fin.",
+  "version": 1,
+  "schemaVersion": 2,
+  "tasks": [
+    {
+      "name": "receive_keyword",
+      "taskReferenceName": "receive_keyword",
+      "type": "SIMPLE",
+      "inputParameters": {
+        "keyword": "${workflow.input.keyword}",
+        "ticker": "${workflow.input.ticker}"
+      }
+    },
+    {
+      "name": "call_kosmo_automation_webhook",
+      "taskReferenceName": "call_kosmo_automation_webhook",
+      "type": "HTTP",
+      "inputParameters": {
+        "http_request": {
+          "method": "POST",
+          "uri": "${workflow.input.kosmoBaseUrl}/api/automation/zapier/events",
+          "body": {
+            "source": "orkes",
+            "eventType": "risk_keyword_requested",
+            "keyword": "${workflow.input.keyword}",
+            "ticker": "${workflow.input.ticker}",
+            "message": "Refresh public risk data from orchestration workflow"
+          }
+        }
+      }
+    }
+  ],
+  "inputParameters": [
+    "kosmoBaseUrl",
+    "keyword",
+    "ticker"
+  ],
+  "ownerEmail": "replace-me@example.com",
+  "timeoutSeconds": 300
+}

@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "zapier": {
+      "serverUrl": "https://mcp.zapier.com/api/mcp/YOUR_SERVER_ID"
+    },
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "USE_ENV_OR_LOCAL_SECRET"
+      }
+    }
+  }
+}
